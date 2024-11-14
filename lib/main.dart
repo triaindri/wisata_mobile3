@@ -1,5 +1,6 @@
 import 'package:aslab_travel/latihanmodul/pertemuan4.dart';
 import 'package:aslab_travel/latihanmodul/pertemuan5.dart';
+import 'package:aslab_travel/latihanmodul/pertemuan6.dart';
 import 'package:aslab_travel/model/landing_model.dart';
 import 'package:aslab_travel/project/screens/landing_page.dart';
 import 'package:aslab_travel/project/screens/splashscreen.dart';
