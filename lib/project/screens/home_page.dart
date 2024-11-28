@@ -1,6 +1,8 @@
 import 'package:aslab_travel/const.dart';
 import 'package:aslab_travel/model/destination_model.dart';
+import 'package:aslab_travel/project/screens/detail_destination.dart';
 import 'package:aslab_travel/project/widgets/popular_destination.dart';
+import 'package:aslab_travel/project/widgets/rekomendasi_destimation.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,6 +22,13 @@ class _HomePageState extends State<HomePage> {
   List<TravelDestination> rekomendasi = listDestination
       .where((element) => element.category == 'rekomendasi')
       .toList();
+
+  List<IconData> icons = [
+    Icons.home_filled,
+    Icons.bookmark_outline_rounded,
+    Icons.shopping_cart_outlined,
+    Icons.person_outline_outlined,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +75,121 @@ class _HomePageState extends State<HomePage> {
                 (index) => Padding(
                   padding: EdgeInsets.only(right: 15),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              DetailDestinasi(destination: popular[index]),
+                        ),
+                      );
+                    },
                     child: PopularDestination(destination: popular[index]),
                   ),
                 ),
               ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Rekomendasi untuk Kamu',
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
+                ),
+                Text(
+                  'Lihat Semua',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: blueTextColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                children: List.generate(
+                  rekomendasi.length,
+                  (index) => Padding(
+                    padding: EdgeInsets.only(bottom: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => DetailDestinasi(
+                                destination: rekomendasi[index]),
+                          ),
+                        );
+                      },
+                      child: RekomendasiDestination(
+                          destination: rekomendasi[index]),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 18),
+                        decoration: BoxDecoration(
+                          color: kButtonColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: List.generate(
+                            icons.length,
+                            (index) => GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  selectedPage = index;
+                                });
+                              },
+                              child: Icon(
+                                icons[index],
+                                size: 32,
+                                color: selectedPage == index
+                                    ? Colors.white
+                                    : Colors.white.withOpacity(0.4),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ],
